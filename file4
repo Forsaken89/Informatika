@@ -1,0 +1,18 @@
+#include <iostream>
+
+using namespace std;
+
+double temperature (double celsius){
+return 1.8 * celsius + 32;
+}
+int main(){
+double faren;
+double celsius;
+
+cout « "Please enter a Celsius value: " « endl;
+cin » celsius;
+
+cout « celsius « " degrees Celsius is " « temperature(celsius) « " degrees Fahrenheit." « endl;
+
+return 0;
+}
