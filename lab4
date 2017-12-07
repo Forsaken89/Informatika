@@ -1,0 +1,92 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+#include <windows.h>
+#include <math.h>
+#include <locale>
+
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+	setlocale(LC_ALL, "Russian");
+	const int m = 5, k = 30;
+	int n, i, j, cnt = 0;
+	bool sort = 1, all_posit;
+	struct STUDENT
+	{
+		char fio[k];
+		int numb;
+		int ball[m];
+		float sum;
+	};
+	STUDENT buffer;
+	cout << (" Введите количество структур STUDENT: "); cin >> n;
+	cout << endl;
+	STUDENT *Student = new STUDENT[n];
+	for (i = 0; i<n; i++)
+	{
+		Student[i].sum = 0;
+		cout << (" Введите фамилию и инициалы ") << (i + 1);
+		cout << (" студента: "); cin.ignore(); cin.getline(Student[i].fio, k);
+		cout << (" Введите номер группы: "); cin >> Student[i].numb;
+		cout << (" Введите оценки:") << endl;
+		for (j = 0; j<m; j++)
+		{
+			cout << ' ' << (j + 1) << (" оценка: "); cin >> Student[i].ball[j];
+			Student[i].sum += Student[i].ball[j];
+		}
+		Student[i].sum /= m;
+		cout << endl;
+		cout << (" Средняя оценка: ") << Student[i].sum << endl;
+		cout << endl;
+	}
+	while (sort)
+	{
+		sort = 0;
+		for (i = 0; i<n - 1; i++)
+			if (Student[i].sum>Student[i + 1].sum)
+			{
+				buffer = Student[i];
+				Student[i] = Student[i + 1];
+				Student[i + 1] = buffer;
+				sort = 1;
+			}
+	}
+	cout << endl;
+	cout << (" Список студентов упорядоченных по возрастанию среднего бала: ");
+		for (i = 0; i<n; i++)
+		{
+			cout << (" Фамилия и инициалы студента: ") << Student[i].fio << endl;
+			cout << (" Номер группы: ") << Student[i].numb << endl;
+			cout << (" Оценки:") << endl;
+			for (j = 0; j<m; j++)
+			{
+				cout << ' ' << (j + 1) << (" оценка: ") << Student[i].ball[j] << endl;
+			}
+			cout << endl;
+			cout << (" Средняя оценка: ") << Student[i].sum << endl;
+			cout << endl;
+		}
+	cout << ("\n Список студентов, чей балл равен 4 или 5:") << endl << endl;
+	for (i = 0; i<n; i++)
+	{
+		all_posit = true;
+		for (j = 0; j<n; j++)
+			if (Student[i].ball[j]<4)
+			{
+				all_posit = false;
+				break;
+			}
+		if (all_posit)
+		{
+			cout << (" Фамилия и инициалы студента: ") << Student[i].fio << endl;
+			cout << (" Номер группы: ") << Student[i].numb << endl;
+			cout << endl;
+			cnt++;
+		}
+	}
+	if (0 == cnt)cout << (" Таких студентов нет!");
+	system("pause");
+	return 0;
+}
