@@ -1,0 +1,26 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main(){
+ifstream fin("data.dat");
+char buff[70], ch[1];
+
+while (!fin.eof()){
+fin.getline(buff, 70);
+cout << buff << endl;
+}
+
+fin.clear();
+fin.seekg(0, ios::beg);
+int k = 0;
+while (!fin.eof()){
+fin >> ch;
+if (ch[0] != ' '){
+k++;
+}
+}
+fin.close();
+cout << endl << "Number of words in the text : " << k << endl;
+}
