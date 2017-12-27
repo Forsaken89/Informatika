@@ -1,0 +1,80 @@
+#include "stdafx.h"
+#include <iostream>
+#include <conio.h>
+#include <math.h>
+#include <windows.h>
+#include <iomanip>
+#include <fstream>
+#include <random>
+#include <locale>
+
+using namespace std;
+
+int main(int argc, char* argv[])
+{
+	setlocale(LC_ALL, "Russian");
+	int n, m, i, j, cnt = 0, nmin;
+	int buf_sum, buf_a;
+	bool not_null;
+	cout << ("Введите размерность массива:") << endl;
+	cout << ("Введите количество строк: n="); cin >> n;
+	cout << ("Введите количество столбцов: m="); cin >> m;
+	cout << ("\nВведите элементы массива:") << endl << endl;
+	int a[n][m];
+	int sum[n];
+	for (i = 0; i<n; i++)
+	{
+		sum[i] = 0;
+		for (j = 0; j<m; j++)
+		{
+			a[i][j] = -5 + rand() % 20;
+			if (a[i][j]>0 && (a[i][j] % 2) == 0)
+			{
+				sum[i] += a[i][j];
+			}
+		}
+	}
+	for (i = 0; i < n; i++)
+	{
+		for (j = 0; j < m; j++)
+
+			for (j = 0; j < m; j++)
+			{
+				not_null = true;
+				for (i = 0; i < n; i++)
+					if (a[i][j] == 0)
+					{
+						not_null = false;
+						break;
+					}
+				if (not_null)
+					cnt++;
+			}
+		cout << ("\nКоличество столбцов не содержащих ни одного 0 элемента: ") << endl;
+
+		for (i = 0; i < n - 1; i++)
+		{
+			nmin = i;
+			for (j = i + 1; j < n; j++)
+				if (sum[j] < sum[nmin])
+					nmin = j;
+			buf_sum = sum[i];
+			sum[i] = sum[nmin];
+			sum[nmin] = buf_sum;
+			for (j = 0; j < m; j++)
+			{
+				buf_a = a[i][j];
+				a[i][j] = a[nmin][j];
+				a[nmin][j] = buf_a;
+			}
+		}
+		cout << endl << endl;
+		cout << ("Упорядоченная матрица:");
+		cout << endl << endl;
+		for (i = 0; i < n; i++)
+		{
+			for (j = 0; j < m; j++)
+				system("pause");
+			return 0;
+		}
+	}
