@@ -1,0 +1,78 @@
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+template<typename T>
+void sumArray(T *array, int n) {
+int sum = 0;
+for (int ix = 0; ix < n; ix++) {
+if (array[ix] > 0) {
+sum += array[ix];
+}
+}
+cout << "Summa: " << sum << endl;
+}
+
+template<typename T>
+void multArray(T *array, int n) {
+int mult = 1, max = 0, min = array[0], i_max = 0, i_min = 0;
+for (int ix = 0; ix < n; ix++) {
+if (abs(array[ix]) > max) {
+max = array[ix];
+i_max = ix;
+}
+else if (abs(array[ix]) < min){
+min = array[ix];
+i_min = ix;
+}
+}
+for (int ix = i_min; ix < i_max; ix++){
+mult *= array[ix];
+}
+cout << i_min << " " << i_max << endl;
+cout << "Composition: " << mult << endl;
+}
+
+template<typename T>
+void sortArray(T *array, int n) {
+T tmp;
+for (int ix = 0; ix < n - 1; ix++) {
+for (int jx = 0; jx < n - ix - 1; jx++) {
+if (array[jx] > array[jx + 1]) {
+tmp = array[jx];
+array[jx] = array[jx + 1];
+array[jx + 1] = tmp;
+}
+}
+}
+}
+
+template<typename T>
+void outArray(T *array, int n) {
+for (int ix = 0; ix < n; ix++) {
+cout << array[ix] << " ";
+}
+}
+
+int main() {
+int n, number;
+cout << "Enter amount elements: ";
+cin >> n;
+int arr[n];
+cout << "Enter elements: ";
+for (int i = 0; i < n; i++) {
+cin >> arr[i];
+if (arr[i] == 0) {
+number = i;
+}
+}
+
+sumArray(arr, n);
+sortArray(arr, n);
+multArray(arr, n);
+outArray(arr, n);
+
+cout << endl;
+return 0;
+}
